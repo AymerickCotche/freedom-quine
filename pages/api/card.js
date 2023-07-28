@@ -19,7 +19,7 @@ const transformNum = (numString) => {
       drawn: false
     })
   }
-  return formattedNumeros
+  return formattedNumeros 
 
 }
 
