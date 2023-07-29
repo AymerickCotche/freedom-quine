@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { addNewTirage } from "../redux/features/quine/quineSlice";
+import { addNewTirage, fetchAllCards } from "../redux/features/quine/quineSlice";
 import FormNewNumber from "./FormNewNumber";
 
 const Header: React.FC = () => {
@@ -10,8 +10,9 @@ const Header: React.FC = () => {
   const {lastTirage} = useAppSelector(state => state.quine)
   
   const handleNewTirage = () => {
-    confirm("Sur ?")
-    dispatch(addNewTirage())
+    if (confirm("Sur ?")) {
+      dispatch(addNewTirage())
+    }
   }
   return (
     <div className="bg-blue-200 h-full p-2 text-center">

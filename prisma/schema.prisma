@@ -34,6 +34,7 @@ model Card {
   id String @default(cuid()) @id
   cardNumber  String
   playedNumber  String
+  numManquant Int @default(15)
 }
 
 model Tirage {

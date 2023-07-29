@@ -30,7 +30,8 @@ async function getCards(req, res) {
     const formatedResult = result.map(card => ({
       id: card.id,
       cardNumber: card.cardNumber,
-      playedNumber: transformNum(card.playedNumber)
+      playedNumber: transformNum(card.playedNumber),
+      numManquant: 15
     }))
     res.status(200).json(formatedResult);
   } catch (err) {

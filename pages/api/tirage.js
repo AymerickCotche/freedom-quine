@@ -17,7 +17,7 @@ async function getTirages(req, res) {
     const formatedResult = result.map(tirage => ({
       id: tirage.id,
       name: tirage.name,
-      value: tirage.value.length > 0 ? tirage.value.split(',') : []
+      value: tirage.value ? tirage.value.split(',') : []
     }))
     res.status(200).json(formatedResult);
   } catch (err) {

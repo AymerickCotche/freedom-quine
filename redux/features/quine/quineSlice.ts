@@ -22,6 +22,7 @@ export type CardTypeNew = {
   id: string;
   cardNumber: string
   playedNumber: Numero[]
+  numManquant : number
 }
 
 export type TirageType = {
@@ -139,6 +140,7 @@ export const quineSlice = createSlice({
       state.lastTirage = action.payload
     },
     setDrawn: (state, action: PayloadAction<TirageType>) => {
+      
       for (const numero of state.lastTirage.value) {
         state.cards.forEach(card => {
           card.playedNumber.forEach(number => {
@@ -150,6 +152,7 @@ export const quineSlice = createSlice({
          
         )
       }
+      
     },
     addNewNumber: (state, action: PayloadAction<string>) => {
       state.tirages[state.tirages.length - 1].value.push(action.payload)
@@ -170,7 +173,8 @@ export const quineSlice = createSlice({
         state.cards.push({
           id: action.payload.id,
           cardNumber: action.payload.cardNumber,
-          playedNumber: transformNum(action.payload.playedNumber)
+          playedNumber: transformNum(action.payload.playedNumber),
+          numManquant : 15
         })
       })
       .addCase(updateNumbers.fulfilled, (state, action) => {
@@ -184,6 +188,12 @@ export const quineSlice = createSlice({
           id : action.payload.id,
           name : action.payload.name,
           value : []
+        })
+        state.cards.forEach(card => {
+          card.numManquant = 15
+          card.playedNumber.forEach(number => {
+            number.drawn = false
+          })
         })
       })
   },
