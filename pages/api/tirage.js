@@ -14,7 +14,12 @@ async function getTirages(req, res) {
   const data = req.body;
   try {
     const result = await prisma.tirage.findMany();
-    res.status(200).json(result);
+    const formatedResult = result.map(tirage => ({
+      id: tirage.id,
+      name: tirage.name,
+      value: tirage.value.split(',')
+    }))
+    res.status(200).json(formatedResult);
   } catch (err) {
     console.log(err);
     res.status(403).json({ err: "Error occured." });

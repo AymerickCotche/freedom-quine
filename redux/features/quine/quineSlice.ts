@@ -27,16 +27,8 @@ export type CardTypeNew = {
 export type TirageType = {
   id: string
   name: string
-  value: string
+  value: string[]
 }
-
-// declaring the types for our state
-export type QuineState = {
-  cards: CardTypeNew[];
-  tirages: TirageType[]
-  cardNumberInput: string
-  numValuesInput: string[];
-};
 
 export const fetchAllCards = createAsyncThunk(
   'quine/fetchAllCards',
@@ -64,6 +56,24 @@ export const addNewCard = createAsyncThunk(
     return tirages.json()
   }
 )
+
+export const updateNumbers = createAsyncThunk(
+  'quine/updateNumbers',
+  async (data: TirageType, thunkAPI) => {
+    console.log(data)
+    const dataToSend = {
+      id: data.id,
+      name: data.name,
+      value: data.value.join(',')
+    }
+    const tirages = await fetch('/api/addnumber', {
+      method: 'POST',
+      body: JSON.stringify(dataToSend),
+    })
+    return tirages.json()
+  }
+)
+
 const transformNum = (numString: string) => {
   const formattedNumeros = []
   const numArray = numString.split(',')
@@ -76,19 +86,34 @@ const transformNum = (numString: string) => {
   return formattedNumeros
 
 }
+
+// declaring the types for our state
+export type QuineState = {
+  cards: CardTypeNew[]
+  tirages: TirageType[]
+  lastTirage: TirageType
+  cardNumberInput: string
+  numValuesInput: string[]
+  newNumberInput: string
+};
+
 const initialState: QuineState = {
   cards: [],
   tirages: [],
+  lastTirage: {
+    id: '',
+    name: '',
+    value: []
+  },
   cardNumberInput: '',
   numValuesInput: Array(15).fill(''),
+  newNumberInput: ''
 };
 
 export const quineSlice = createSlice({
   name: 'quine',
   initialState,
-// The `reducers` field lets us define reducers and generate associated actions. 
-// In this example, 'increment', 'decrement' and 'incrementByAmount' are actions. They can be triggered from outside this slice, anywhere in the app. 
-// So for example, if we make a dispatch to the 'increment' action here from the index page, it will get triggered and change the value of the state from 0 to 1.
+
   reducers: {
     setCardNumber: (state, action: PayloadAction<string>) => {
       state.cardNumberInput = action.payload;
@@ -97,16 +122,38 @@ export const quineSlice = createSlice({
       const { index, value } = action.payload;
       state.numValuesInput[index] = value;
     },
+    setNewNumber: (state, action: PayloadAction<string>) => {
+      state.newNumberInput = action.payload;
+    },
+    setLastTirage: (state, action: PayloadAction<TirageType>) => {
+      state.lastTirage = action.payload
+    },
+    setDrawn: (state, action: PayloadAction<TirageType>) => {
+      for (const numero of state.lastTirage.value) {
+        state.cards.forEach(card => {
+          card.playedNumber.forEach(number => {
+            if (number.value === numero) {
+              number.drawn = true
+            }
+          })
+        }
+         
+        )
+      }
+    },
+    addNewNumber: (state, action: PayloadAction<string>) => {
+      state.tirages[state.tirages.length - 1].value.push(action.payload)
+    }
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
+
     builder
       .addCase(fetchAllCards.fulfilled, (state, action) => {
-        // Add user to the state array
+
         state.cards = action.payload
       })
       .addCase(fetchAllTirages.fulfilled, (state, action) => {
-        // Add user to the state array
+
         state.tirages = action.payload
       })
       .addCase(addNewCard.fulfilled, (state, action) => {
@@ -116,15 +163,20 @@ export const quineSlice = createSlice({
           playedNumber: transformNum(action.payload.playedNumber)
         })
       })
+      .addCase(updateNumbers.fulfilled, (state, action) => {
+        console.log('done')
+      })
   },
 });
-// Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
+
 
 export const {
-  setCardNumber, setNumValue
+  setCardNumber,
+  setNumValue,
+  setLastTirage,
+  setDrawn,
+  setNewNumber,
+  addNewNumber
 } = quineSlice.actions
-// calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
 
-
-// exporting the reducer here, as we need to add this to the store
 export default quineSlice.reducer;
