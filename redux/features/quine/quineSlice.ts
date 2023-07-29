@@ -74,6 +74,16 @@ export const updateNumbers = createAsyncThunk(
   }
 )
 
+export const addNewTirage = createAsyncThunk(
+  'quine/addNewTirage',
+  async (_, thunkAPI) => {
+    const tirages = await fetch('/api/addtirage', {
+      method: 'POST'
+    })
+    return tirages.json()
+  }
+)
+
 const transformNum = (numString: string) => {
   const formattedNumeros = []
   const numArray = numString.split(',')
@@ -164,6 +174,9 @@ export const quineSlice = createSlice({
         })
       })
       .addCase(updateNumbers.fulfilled, (state, action) => {
+        console.log('done')
+      })
+      .addCase(addNewTirage.fulfilled, (state, action) => {
         console.log('done')
       })
   },

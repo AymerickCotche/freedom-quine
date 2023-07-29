@@ -38,6 +38,12 @@ model Card {
 
 model Tirage {
   id String @default(cuid()) @id
-  name String
-  value String
+  name Int @default(autoincrement())
+  value String @default("")
+}
+
+model TirageNew {
+  id String @default(cuid()) @id
+  name Int @default(autoincrement())
+  value String @default("")
 }
