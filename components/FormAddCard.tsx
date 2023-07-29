@@ -31,7 +31,7 @@ const FormAddCard: React.FC = () => {
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <label htmlFor="cardNumber" className="block font-medium mb-2">
-        Card Number:
+        Numéro du carton
       </label>
       <input
         type="text"
@@ -57,7 +57,7 @@ const FormAddCard: React.FC = () => {
       </div>
 
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-        Submit
+        Enregistrer le carton
       </button>
     </form>
   );
