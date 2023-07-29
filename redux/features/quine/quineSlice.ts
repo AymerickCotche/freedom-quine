@@ -101,6 +101,7 @@ const transformNum = (numString: string) => {
 // declaring the types for our state
 export type QuineState = {
   cards: CardTypeNew[]
+  displayedCards: CardTypeNew[],
   tirages: TirageType[]
   lastTirage: TirageType
   cardNumberInput: string
@@ -110,6 +111,7 @@ export type QuineState = {
 
 const initialState: QuineState = {
   cards: [],
+  displayedCards: [],
   tirages: [],
   lastTirage: {
     id: -1,
@@ -126,6 +128,9 @@ export const quineSlice = createSlice({
   initialState,
 
   reducers: {
+    setSortedCard: (state, action: PayloadAction<CardTypeNew[]>) => {
+      state.displayedCards = action.payload;
+    },
     setCardNumber: (state, action: PayloadAction<string>) => {
       state.cardNumberInput = action.payload;
     },
@@ -174,7 +179,7 @@ export const quineSlice = createSlice({
           id: action.payload.id,
           cardNumber: action.payload.cardNumber,
           playedNumber: transformNum(action.payload.playedNumber),
-          numManquant : 15
+          numManquant : action.payload.numManquant
         })
       })
       .addCase(updateNumbers.fulfilled, (state, action) => {
@@ -206,7 +211,8 @@ export const {
   setLastTirage,
   setDrawn,
   setNewNumber,
-  addNewNumber
+  addNewNumber,
+  setSortedCard
 } = quineSlice.actions
 
 export default quineSlice.reducer;

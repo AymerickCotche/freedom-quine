@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 
-import {CardTypeNew, TirageType, setDrawn, setLastTirage} from "../redux/features/quine/quineSlice"
+import {CardTypeNew, TirageType, setDrawn, setLastTirage, setSortedCard} from "../redux/features/quine/quineSlice"
 
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
@@ -14,11 +14,10 @@ import FormNewNumber from "../components/FormNewNumber"
 const Quine: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  
   const {cards} = useAppSelector(state => state.quine)
   const {tirages} = useAppSelector(state => state.quine)
   const {lastTirage} = useAppSelector(state => state.quine)
-  
+
   useEffect(() => {
     dispatch(fetchAllCards())
     dispatch(fetchAllTirages())
@@ -38,6 +37,7 @@ const Quine: React.FC = () => {
       dispatch(setDrawn())
     }
   }, [tirages, cards])
+
 
   return (
     <Layout>

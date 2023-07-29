@@ -31,7 +31,7 @@ async function getCards(req, res) {
       id: card.id,
       cardNumber: card.cardNumber,
       playedNumber: transformNum(card.playedNumber),
-      numManquant: 15
+      numManquant: card.numManquant
     }))
     res.status(200).json(formatedResult);
   } catch (err) {
