@@ -179,7 +179,12 @@ export const quineSlice = createSlice({
       .addCase(addNewTirage.fulfilled, (state, action) => {
         state.lastTirage.id = action.payload.id
         state.lastTirage.name = action.payload.name
-        state.lastTirage.value = action.payload.value.split(',')
+        state.lastTirage.value = []
+        state.tirages.push({
+          id : action.payload.id,
+          name : action.payload.name,
+          value : []
+        })
       })
   },
 });

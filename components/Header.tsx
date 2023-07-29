@@ -10,6 +10,7 @@ const Header: React.FC = () => {
   const {lastTirage} = useAppSelector(state => state.quine)
   
   const handleNewTirage = () => {
+    confirm("Sur ?")
     dispatch(addNewTirage())
   }
   return (
@@ -26,7 +27,7 @@ const Header: React.FC = () => {
           </div>
           <FormNewNumber/>
         </div>
-      <p onClick={handleNewTirage}>Nouveau tirage</p>
+      <p onClick={handleNewTirage} className="border border-red-700 text-red-800 font-bold bg-red-300 inline-block rounded-md p-2 cursor-pointer mb-2">Nouveau tirage</p>
     </div>
   );
 };
