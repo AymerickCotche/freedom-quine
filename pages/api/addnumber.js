@@ -4,14 +4,14 @@ const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    return await addcards(req, res)
+    return await addnumber(req, res)
   } else {
     return res.status(405).json({ message: 'Method not allowed', success: false })
   }
 }
 
 
-async function addcards(req, res) {
+async function addnumber(req, res) {
   const body = JSON.parse(req.body);
   try {
     const newCard = await prisma.tirage.update({

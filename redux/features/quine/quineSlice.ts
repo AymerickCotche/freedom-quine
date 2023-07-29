@@ -25,7 +25,7 @@ export type CardTypeNew = {
 }
 
 export type TirageType = {
-  id: string
+  id: number
   name: string
   value: string[]
 }
@@ -60,11 +60,10 @@ export const addNewCard = createAsyncThunk(
 export const updateNumbers = createAsyncThunk(
   'quine/updateNumbers',
   async (data: TirageType, thunkAPI) => {
-    console.log(data)
     const dataToSend = {
       id: data.id,
       name: data.name,
-      value: data.value.join(',')
+      value: data.value.length > 1 ? data.value.join(',') : data.value[0]
     }
     const tirages = await fetch('/api/addnumber', {
       method: 'POST',
@@ -76,9 +75,10 @@ export const updateNumbers = createAsyncThunk(
 
 export const addNewTirage = createAsyncThunk(
   'quine/addNewTirage',
-  async (_, thunkAPI) => {
+  async (data, thunkAPI) => {
     const tirages = await fetch('/api/addtirage', {
-      method: 'POST'
+      method: 'POST',
+      body: JSON.stringify(data)
     })
     return tirages.json()
   }
@@ -111,7 +111,7 @@ const initialState: QuineState = {
   cards: [],
   tirages: [],
   lastTirage: {
-    id: '',
+    id: -1,
     name: '',
     value: []
   },
@@ -177,7 +177,9 @@ export const quineSlice = createSlice({
         console.log('done')
       })
       .addCase(addNewTirage.fulfilled, (state, action) => {
-        console.log('done')
+        state.lastTirage.id = action.payload.id
+        state.lastTirage.name = action.payload.name
+        state.lastTirage.value = action.payload.value.split(',')
       })
   },
 });

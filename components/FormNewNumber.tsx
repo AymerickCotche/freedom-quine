@@ -36,6 +36,7 @@ const FormNewNumber: React.FC = () => {
       value: allValues
     }
     dispatch(updateNumbers(toUpdateNumber))
+    dispatch(setNewNumber(''))
   };
 
   return (
@@ -50,7 +51,6 @@ const FormNewNumber: React.FC = () => {
         onChange={handleChangeNewNumber}
         className="border p-2 mb-4 w-full"
       />
-      
 
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
         Submit

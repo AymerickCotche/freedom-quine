@@ -42,33 +42,23 @@ const Quine: React.FC = () => {
   return (
     <Layout>
       <div className="page">
-        <div className="flex">
 
-          <div>
-            {cards.map((card: CardTypeNew) => (
-              <div className="bg-red-200 p-2">
-                <p>{card.cardNumber}</p>
-                <div className="grid grid-cols-5 gap-2">
-                  {card.playedNumber.map(num => (
-                    <p className={num.drawn ? "flex border p-2 justify-center items-center bg-green-200": "flex border p-2 justify-center items-center"}>{num.value}</p>
-                  ))}
-                </div>
+        <div>
+          {cards.map((card: CardTypeNew) => (
+            <div className="bg-red-200 p-2">
+              <p>{card.cardNumber}</p>
+              <div className="grid grid-cols-5 gap-2">
+                {card.playedNumber.map(num => (
+                  <p className={num.drawn ? "flex border p-2 justify-center items-center bg-green-200": "flex border p-2 justify-center items-center"}>{num.value}</p>
+                ))}
               </div>
-            ))}
-            <FormAddCard/>
-
-          </div>
-          <div>
-            
-            <h2>Tirage N°{lastTirage.name}</h2>
-            <div className="grid grid-cols-5 gap-2">
-              {lastTirage.value.map((numero: string) => (
-                <p>{numero}</p>
-              ))}
             </div>
-            <FormNewNumber/>
-          </div>
+          ))}
+          <FormAddCard/>
+
         </div>
+          
+
       </div>
       
     </Layout>

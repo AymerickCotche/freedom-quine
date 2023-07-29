@@ -12,10 +12,10 @@ export default async function handler(req, res) {
 
 
 async function addtirage(req, res) {
-  const body = JSON.parse(req.body);
   try {
-    const newTirage = await prisma.card.create();
-    
+    const newTirage = await prisma.tirage.create({
+      data: {}
+    }); 
     return res.status(200).json(newTirage, {success: true});
   } catch (err) {
     console.log(err);
