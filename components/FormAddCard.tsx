@@ -25,6 +25,11 @@ const FormAddCard: React.FC = () => {
       cardNumber: cardNumberInput,
       playedNumber: concatenatedNums
     }))
+
+    for (let i = 0; i< 15; i++) {
+      dispatch(setNumValue({ index : i, value: "" }));
+    }
+    dispatch(setCardNumber(""));
     // Vous pouvez effectuer ici l'action que vous souhaitez avec la chaîne de caractères concaténée
   };
 
