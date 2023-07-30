@@ -23,7 +23,7 @@ const Header: React.FC = () => {
           <h2 className="mb-2 font-semibold">Tirage N°{lastTirage.name}</h2>
           <div className="grid grid-cols-5 gap-2">
             {lastTirage.value.map((numero: string) => (
-              <p>{numero}</p>
+              <p className="bg-yellow-400 font-bold">{numero}</p>
             ))}
           </div>
           <FormNewNumber/>

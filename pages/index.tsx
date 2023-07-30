@@ -43,10 +43,10 @@ const Quine: React.FC = () => {
     <Layout>
       <div className="page">
 
-        <div>
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
           {cards.map((card: CardTypeNew) => (
-            <div className="bg-red-200 p-2">
-              <p>{card.cardNumber}</p>
+            <div className="bg-red-200 p-2 border border-orange-600 rounded-xl" key={card.id}>
+              <p>Carton N° {card.cardNumber}</p>
               <div className="grid grid-cols-5 gap-2">
                 {card.playedNumber.map(num => (
                   <p className={num.drawn ? "flex border p-2 justify-center items-center bg-green-200": "flex border p-2 justify-center items-center"}>{num.value}</p>
@@ -54,10 +54,10 @@ const Quine: React.FC = () => {
               </div>
             </div>
           ))}
-          <FormAddCard/>
+          
 
         </div>
-          
+        <FormAddCard/>
 
       </div>
       
