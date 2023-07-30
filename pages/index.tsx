@@ -43,7 +43,7 @@ const Quine: React.FC = () => {
     <Layout>
       <div className="page">
 
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-5 gap-2 p-2">
           {cards.map((card: CardTypeNew) => (
             <div className="bg-red-200 p-2 border border-orange-600 rounded-xl" key={card.id}>
               <p>Carton N° {card.cardNumber}</p>

@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     }
   }
   return (
-    <div className="bg-blue-200 h-full p-2 text-center">
+    <div className=" bg-blue-200 h-full p-2 text-center">
       <h1 className="text-xl font-bold text-center mb-2">Loto Quine Freedom</h1>
       <p className="border border-blue-700 inline-block rounded-md p-2 cursor-pointer mb-2">ajouter une carte</p>
       <div>
